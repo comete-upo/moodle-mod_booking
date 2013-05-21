@@ -6,12 +6,16 @@ $string['allowupdate'] = 'Allow booking to be updated';
 $string['answered'] = 'Answered';
 $string['attachical'] = 'Attach ical events';
 $string['attachicaldesc'] = 'Email notifications will include an attached ical event, if this is enabled';
+$string['linktocourse'] = 'Permettre l\'inscription dans un cours Moodle via le module';
+$string['linktocoursedesc'] = 'Il est possible d\'inscrire les participants qui réservent des créneaux dans d\'autres cours de Moodle. Attention cependant, la liste des cours dans laquelle l\'enseignant peut choisir le cours en question n\'est pas filtrée pour le moment !';
 $string['booking'] = 'Booking';
+$string['booking:addinstance'] = 'Ajouter un évènement'; # Il manquait cette ligne 
 $string['booking:choose'] = 'Boook';
 $string['booking:deleteresponses'] = 'Delete responses';
 $string['booking:downloadresponses'] = 'Download responses';
 $string['booking:readresponses'] = 'Read responses';
 $string['booking:updatebooking'] = 'Manage booking options';
+
 $string['bookingclose'] = 'Until';
 $string['bookingfull'] = 'There are no available places';
 $string['bookingname'] = 'Booking name';
@@ -23,6 +27,19 @@ $string['full'] = 'Full';
 $string['havetologin'] = 'You have to log in before you can submit your booking';
 $string['limit'] = 'Limit';
 $string['modulename'] = 'Booking';
+$string['modulename_help'] = 'L\'activité Évènement permet à l\'enseignant(e) de proposer aux étudiant(e)s de s\'inscrire à un évènement.
+L\'enseignant(e) présente l\'évènement et ajoute une ou plusieurs options de réservation au(x)quelle(s) les étudiant(e)s pourront s\'inscrire.
+
+Il est possible 
+* de définir un nombre limite d\'inscription pour chaque option de réservation
+* de proposer l\'inscription sur liste d\'attente
+* de spécifier un créneau horaire
+* de limiter le nombre d\'inscription par personne
+* de restreindre la période de réservation
+
+L\'enseignant(e) récupère ensuite la liste des personnes inscrites à l\'évènement en général et/ou à chaque option de réservation possible.
+
+';
 $string['pluginname'] = 'Booking';
 $string['pluginadministration'] = 'Booking administration';
 $string['modulenameplural'] = 'Bookings';
@@ -51,7 +68,7 @@ $string['placesavailable'] = 'Places available';
 $string['waitingplacesavailable'] = 'Waiting list places available';
 $string['confirmbookingoffollowing'] = 'Please confirm the booking of following course';
 $string['agreetobookingpolicy'] = 'I have read and agree to the following booking policies';
-$string['bookingsaved'] = 'Your booking was successfully saved. You can now proceed to book other courses.';
+$string['bookingsaved'] = 'Your booking was successfully saved.';
 $string['booked'] = 'Booked';
 $string['cancelbooking'] = 'Cancel booking';
 $string['deletebooking'] = 'Do you really want to unsubscribe from following course? <br /><br /> <b>{$a} </b>';
@@ -79,7 +96,7 @@ $string['showallbookings'] = 'Show booking overview for all bookings';
 $string['showmybookings'] = 'Show only my bookings';
 $string['mailconfirmationsent'] = 'You will shortly receive a confirmation e-mail';
 $string['deletebookingoption'] = 'Delete this booking option';
-$string['confirmdeletebookingoption'] = 'Do you really want to delete this booking option?';
+$string['confirmdeletebookingoption'] = 'Do you really want to delete the booking option : ';
 $string['norighttobook'] = 'Booking is not possible for your user role. Please contact the site administrator to give you the appropriate rights or sign in.';
 $string['createdby'] = 'Booking module created by edulabs.org';
 $string['maxperuserwarning'] = 'You have currently have {$a->count}/{$a->limit} maximum bookings';
@@ -204,9 +221,13 @@ Associated course: {$a->courselink}
 
 ';
 //report.php
-$string['withselected'] = 'With selected users:'; 
+$string['withselected'] = 'With selected users'; 
 $string['associatedcourse'] = 'Associated course';
 $string['bookedusers'] = 'Booked users';
+$string['nobookedusers'] = 'Nobody booked this option';
 $string['waitinglistusers'] = 'Users on waiting list';
 $string['downloadallresponses'] = 'Download all responses for all booking options';
-
+$string['return'] = 'Revenir à l\'évènement';
+$string['badoptionid'] = 'Option ID was incorrect';
+$string['coursemisconfig'] = 'Course ID was incorrect';
+$string['badcoursemoduleid'] = 'Course Module ID was incorrect';

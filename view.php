@@ -80,7 +80,7 @@ $PAGE->set_heading($course->fullname);
 echo $OUTPUT->header();
 
 // check if custom user profile fields are required and redirect to complete them if necessary
-if (has_capability('moodle/user:editownprofile', $context, NULL, false) and booking_check_user_profile_fields($USER->id) and !has_capability('moodle/site:doanything', $context)){
+if (has_capability('moodle/user:editownprofile', $context, NULL, false) and booking_check_user_profile_fields($USER->id) and !has_capability('moodle/site:doanything', $context)){ # doanything does not exist in Moodle 2 ...
 	$contents = get_string('mustfilloutuserinfobeforebooking','booking');
 	$contents .= $OUTPUT->single_button(new moodle_url("edituserprofile.php", array('cmid' => $cm->id, 'courseid' => $course->id)), get_string('continue'),'get');
 	echo $OUTPUT->box($contents, 'box generalbox', 'notice');
@@ -133,7 +133,7 @@ if ($booking->intro) {
 //download spreadsheet of all users
 if (has_capability('mod/booking:downloadresponses',$context)) {
 	/// Download spreadsheet for all booking options
-	echo $html = html_writer::tag('div', get_string('downloadallresponses', 'booking').': ', array('style' => 'width:100%; font-weight: bold; text-align: right;'));
+	echo $html = html_writer::tag('div', get_string('downloadallresponses', 'booking').': ', array('style' => 'font-weight: bold; text-align: left;'));
 	$optionstochoose = array( 'all' => get_string('allbookingoptions', 'booking'));
 	foreach ($booking->option as $option){
 		$optionstochoose[$option->id] = $option->text;
@@ -144,8 +144,8 @@ if (has_capability('mod/booking:downloadresponses',$context)) {
 	$options["download"] = "ods";
 	$options['action'] = "all";
 	$button =  $OUTPUT->single_button(new moodle_url("report.php", $options), get_string("downloadods"));
-	echo '<div style="width: 100%; text-align: right; display:table;">';
-	echo html_writer::tag('span', $button, array('style' => 'width: 100%; text-align: right; display:table-cell;'));
+	echo '<div style="text-align: right; display:table;">';
+	echo html_writer::tag('span', $button, array('style' => 'text-align: right; display:table-cell;'));
 	$options["download"] = "xls";
 	$button = $OUTPUT->single_button(new moodle_url("report.php", $options), get_string("downloadexcel"));
 	echo html_writer::tag('span', $button, array('style' => 'text-align: right; display:table-cell;'));
@@ -158,7 +158,9 @@ $current = false;  // Initialise for later
 /// Print the form
 $bookingopen = true;
 $timenow = time();
-if ($booking->timeclose !=0) {
+
+// This fonction already exist in Moodle 2.x
+/*if ($booking->timeclose !=0) {
 	if ($booking->timeopen > $timenow && !has_capability('mod/booking:updatebooking', $context)) {
 		echo $OUTPUT->box(get_string("notopenyet", "booking", userdate($booking->timeopen)), "center");
 		echo $OUTPUT->footer();
@@ -167,6 +169,13 @@ if ($booking->timeclose !=0) {
 		echo $OUTPUT->box(get_string("expired", "booking", userdate($booking->timeclose)), "center");
 		$bookingopen = false;
 	}
+}*/
+
+// Manage guest
+if (isset($USER->username) && ($USER->username == 'guest')) {
+		echo $OUTPUT->box(get_string("havetologin", "booking"));
+		echo $OUTPUT->footer();
+		exit;
 }
 
 if ( !$current and $bookingopen and has_capability('mod/booking:choose', $context) ) {
@@ -189,7 +198,8 @@ if ( !$current and $bookingopen and has_capability('mod/booking:choose', $contex
 }
 
 if (!$bookingformshown) {
-	echo $OUTPUT->box(get_string("norighttobook", "booking"));
+	if ($bookingopen) # Il ne faut pas afficher ce message que si les réservations sont ouvertes !
+		echo $OUTPUT->box(get_string("norighttobook", "booking"));
 }
 	if (has_capability('mod/booking:updatebooking', $context)) {
 		$addoptionurl = new moodle_url('editoptions.php', array('id'=>$cm->id, 'optionid'=> 'add'));
@@ -197,7 +207,6 @@ if (!$bookingformshown) {
 		echo $OUTPUT->single_button($addoptionurl,get_string('addnewbookingoption','booking'),'get');
 		echo '</div>';
 	}
-		echo $OUTPUT->box("<a href=\"http://www.edulabs.org\">".get_string('createdby','booking')."</a>",'box mdl-align');
 echo $OUTPUT->footer();
 
 

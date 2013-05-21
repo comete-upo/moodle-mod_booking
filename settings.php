@@ -27,4 +27,6 @@ require_once(dirname(__FILE__).'/../../config.php');
 if ($ADMIN->fulltree) {
     $settings->add(new admin_setting_configcheckbox('booking/attachical', get_string('attachical', 'mod_booking'),
                                                     get_string('attachicaldesc', 'mod_booking'), 0));
+    $settings->add(new admin_setting_configcheckbox('booking/linktocourse', get_string('linktocourse', 'mod_booking'),
+                                                    get_string('linktocoursedesc', 'mod_booking'), 0));
 }

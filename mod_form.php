@@ -44,15 +44,15 @@ class mod_booking_mod_form extends moodleform_mod {
 		$mform->setType('maxoverbooking', PARAM_INT);
 		
 		//-------------------------------------------------------------------------------
-		$mform->addElement('header', 'timerestricthdr', get_string('timerestrict', 'booking'));
+		// This fonction already exist in Moodle 2.x
+		/*$mform->addElement('header', 'timerestricthdr', get_string('timerestrict', 'booking'));
 		$mform->addElement('checkbox', 'timerestrict', get_string('timerestrict', 'booking'));
 
 		$mform->addElement('date_time_selector', 'timeopen', get_string("bookingopen", "booking"));
 		$mform->disabledIf('timeopen', 'timerestrict');
 
 		$mform->addElement('date_time_selector', 'timeclose', get_string("bookingclose", "booking"));
-		$mform->disabledIf('timeclose', 'timerestrict');
-		
+		$mform->disabledIf('timeclose', 'timerestrict');*/
 		//-------------------------------------------------------------------------------
 		// CONFIRMATION MESSAGE
         $mform->addElement('header', 'confirmation', get_string('confirmationmessagesettings', 'booking'));
@@ -126,9 +126,10 @@ class mod_booking_mod_form extends moodleform_mod {
 
         $mform->addElement('selectyesno', 'allowupdate', get_string("allowdelete", "booking"));
 
-        $mform->addElement('selectyesno', 'autoenrol', get_string('autoenrol', 'booking'));
-        $mform->addHelpButton('autoenrol', 'autoenrol', 'booking');
-
+        if (get_config('booking', 'linktocourse')) {
+			$mform->addElement('selectyesno', 'autoenrol', get_string('autoenrol', 'booking'));
+			$mform->addHelpButton('autoenrol', 'autoenrol', 'booking');
+        }
         $opts = array(0 => get_string('unlimited', 'mod_booking'));
         $extraopts = array_combine(range(1, 100), range(1, 100));
         $opts = $opts + $extraopts;
