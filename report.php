@@ -24,16 +24,20 @@ if ($action !== '') {
 $PAGE->set_url($url);
 
 if (! $cm = get_coursemodule_from_id('booking', $id)) {
-	error("Course Module ID was incorrect");
+	error(get_string("badcoursemoduleid", "booking"));
 }
 if (! $course = $DB->get_record("course", array("id" => $cm->course))) {
-	print_error('coursemisconf');
+	print_error(get_string("coursemisconfig", "booking"));
+}
+// Try to avoid standard moodle error if bad optionid is given. But there are 2 way to call report.php : via the links (optionid is specified) and via Download buttons (optionid is not specified)
+if (isset($optionid) && ($optionid != "") && ( ! $optionid = $DB->get_field('booking_options', 'id', array('id' => $optionid)))) {
+	print_error(get_string("badoptionid", "booking"));
 }
 
 require_course_login($course, false, $cm);
 
 if (!$booking = booking_get_booking($cm)) {
-	print_error("Course module is incorrect");
+	print_error(get_string("badcoursemoduleid", "booking"));
 }
 
 $context = get_context_instance(CONTEXT_MODULE, $cm->id);
@@ -57,7 +61,7 @@ if ($action == 'deletebookingoption' && $confirm == 1 && has_capability('mod/boo
 	$continue = $url;
 	$cancel = new moodle_url('/mod/booking/report.php', array('id'=>$id));;
 	$continue->params($confirmarray);
-	echo $OUTPUT->confirm(get_string('confirmdeletebookingoption','booking'), $continue,$cancel);
+	echo $OUTPUT->confirm(get_string('confirmdeletebookingoption','booking')." '<strong>".booking_get_option_text($booking, $optionid)."</strong>' ?", $continue,$cancel);
 	echo $OUTPUT->footer();
 	die;
 }
@@ -92,17 +96,19 @@ if (!$download) {
 				$straddselect = "addselect[$selecteduserid]";
 				$confirmarray[$straddselect] = $selecteduserid;
 			}
-			$courseid = $DB->get_field('booking_options', 'courseid', array('id' => $optionid));
-			$enrolid = $DB->get_field('enrol', 'id', array('courseid' => $courseid, 'enrol' => 'manual'));
-			$courseshortname = $DB->get_field('course', 'shortname', array('id' => $courseid));
-			if($courseid != 0){
-				echo $OUTPUT->header();
-				$continue = new moodle_url($CFG->wwwroot.'/enrol/manual/manage.php', array('id' =>$courseid, 'enrolid' => $enrolid, 'add' => 1, 'sesskey' => $USER->sesskey));
-				$continue->params($confirmarray);
-				$cancel = new moodle_url($url);
-				echo $OUTPUT->confirm(get_string('subscribeuser','booking').": ".$courseshortname."?", $continue, $cancel);
-			} else {
-				error("No course selected for this booking option", "report.php?id=$cm->id");
+			if (get_config('booking', 'linktocourse')) {
+				$courseid = $DB->get_field('booking_options', 'courseid', array('id' => $optionid));
+				$enrolid = $DB->get_field('enrol', 'id', array('courseid' => $courseid, 'enrol' => 'manual'));
+				$courseshortname = $DB->get_field('course', 'shortname', array('id' => $courseid));
+				if($courseid != 0){
+					echo $OUTPUT->header();
+					$continue = new moodle_url($CFG->wwwroot.'/enrol/manual/manage.php', array('id' =>$courseid, 'enrolid' => $enrolid, 'add' => 1, 'sesskey' => $USER->sesskey));
+					$continue->params($confirmarray);
+					$cancel = new moodle_url($url);
+					echo $OUTPUT->confirm(get_string('subscribeuser','booking').": ".$courseshortname."?", $continue, $cancel);
+				} else {
+					error("No course selected for this booking option", "report.php?id=$cm->id");
+				}
 			}
 			die;
 		}

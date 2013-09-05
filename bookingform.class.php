@@ -32,13 +32,17 @@ class mod_booking_bookingform_form extends moodleform {
 		$mform->addElement('date_time_selector', 'bookingclosingtime', get_string("bookingclose", "booking"));
 		$mform->disabledIf('bookingclosingtime', 'restrictanswerperiod', 'notchecked');
 
-		$coursearray = array();
-		$coursearray[0] = get_string('donotselectcourse', 'booking');
-		$allcourses = $DB->get_records_select('course', 'id > 0', array(),'id', 'id, shortname');
-		foreach ($allcourses as $id => $courseobject) {
-			$coursearray[$id] = $courseobject->shortname;
+        if (get_config('booking', 'linktocourse')) {
+			$coursearray = array();
+			$coursearray[0] = get_string('donotselectcourse', 'booking');
+			$allcourses = $DB->get_records_select('course', 'id > 0', array(),'id', 'id, shortname');
+			foreach ($allcourses as $id => $courseobject) {
+				$coursearray[$id] = $courseobject->shortname;
+			}
+			$mform->addElement('select', 'courseid', get_string("choosecourse", "booking"), $coursearray);
 		}
-		$mform->addElement('select', 'courseid', get_string("choosecourse", "booking"), $coursearray);
+		else
+			$mform->addElement('hidden', 'courseid', 0);
 
 		$mform->addElement('checkbox', 'startendtimeknown', get_string('startendtimeknown','booking'));
 

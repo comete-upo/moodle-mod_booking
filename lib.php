@@ -373,12 +373,14 @@ function booking_show_form($booking, $user, $cm, $allresponses,$singleuser=0) {
 		if (!$underlimit) {
 			$optiondisplay->button = '';
 		}
-		// check if user ist logged in
-		if (has_capability('mod/booking:choose', $context, $user->id, false)) { //don't show booking button if the logged in user is the guest user.
+		// 'check if user is logged in' <- checking the capability actually
+		// 'don't show booking button if the logged in user is the guest user.' <- test directly with $USER->username == 'guest'
+		if (has_capability('mod/booking:choose', $context, $user->id, false)) { 
 			$bookingbutton = $optiondisplay->button;
-		} else {
-			$bookingbutton = get_string('havetologin', 'booking')."<br />";
 		}
+		/*else {
+			$bookingbutton = get_string('havetologin', 'booking')."<br />";
+		}*/
 		if (!$option->limitanswers){
 			$stravailspaces = get_string("unlimited", 'booking');
 		} else {
@@ -390,11 +392,20 @@ function booking_show_form($booking, $user, $cm, $allresponses,$singleuser=0) {
 				$numberofresponses = count($allresponses[$option->id]);
 			}
 			$optiondisplay->manage = "<a href=\"report.php?id=$cm->id&optionid=$option->id\">".get_string("viewallresponses", "booking", $numberofresponses)."</a>";
+			
 		} else {
 			$optiondisplay->manage = "";
 		}
+		
+		if (has_capability('mod/booking:updatebooking', $context)){
+			$is_admin = "<a href=\"editoptions.php?id=$cm->id&optionid=$option->id\"><img src='pix/edit.gif' title='".get_string("updatebooking", "booking")."' alt='".get_string("updatebooking", "booking")."'></a> ";
+			$is_admin .= "<a href=\"report.php?id=".$cm->id."&optionid=".$option->id."&action=deletebookingoption&sesskey=".sesskey()."\"><img src='pix/delete.gif' title='".get_string('deletebookingoption','booking')."' alt='".get_string('deletebookingoption','booking')."'></a>";
+		}
+		else
+			$is_admin = "";
+		
 		$tabledata[] = array ($bookingbutton.$optiondisplay->booked."<br />".get_string($option->status, "booking")."<br />".$optiondisplay->delete.$optiondisplay->manage,
-				"<b>".format_text($option->text. ' ', FORMAT_MOODLE, $displayoptions)."</b>"."<p>".$option->description."</p>",
+				"<b>".format_text($option->text. ' ', FORMAT_MOODLE, $displayoptions)."</b>".$is_admin."<p>".$option->description."</p>",
 				$option->coursestarttimetext." - <br />".$option->courseendtimetext,
 				$stravailspaces);
 	}
