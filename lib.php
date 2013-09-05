@@ -891,7 +891,7 @@ function booking_reset_course_form_defaults($course) {
  * @return array status array
  */
 function booking_reset_userdata($data) {
-	global $CFG;
+	global $CFG, $DB;
 
 	$componentstr = get_string('modulenameplural', 'booking');
 	$status = array();
@@ -901,7 +901,7 @@ function booking_reset_userdata($data) {
 		FROM {$CFG->prefix}booking ch
 		WHERE ch.course={$data->courseid}";
 
-		delete_records_select('booking_answers', "bookingid IN ($bookingssql)");
+		$DB->delete_records_select('booking_answers', "bookingid IN ($bookingssql)");
 		$status[] = array('component'=>$componentstr, 'item'=>get_string('removeresponses', 'booking'), 'error'=>false);
 	}
 
