@@ -25,8 +25,8 @@ $string['fillinatleastoneoption'] = 'Vous devez faire deux réservations au mini
 $string['full'] = 'Complet';
 $string['havetologin'] = 'Les invités ne peuvent pas faire de réservation';  # Ce texte est plus parlant que l'original
 $string['limit'] = 'Limite';
-$string['modulename'] = 'Évènement (en test)'; # Nom de l'activité (apparait qd on l'ajoute dans un cours)
-$string['modulename_help'] = '<strong>Attention, cette activité est en test. Si elle ne donne pas satifaction, nous pourrons être amener à la retirer. Vous en serez averti si vous l\'utilisez dans un de vos cours. Cette activité peut être un peu complexe à configurer. N\'hésitez pas à prendre contact avec le service COMETE.</strong>
+$string['modulename'] = 'Évènement'; # Nom de l'activité (apparait qd on l'ajoute dans un cours)
+$string['modulename_help'] = 'Cette activité peut être un peu complexe à configurer. N\'hésitez pas à prendre contact avec le service COMETE.
 
 L\'activité Évènement permet à l\'enseignant(e) de proposer aux étudiant(e)s de s\'inscrire à un évènement.
 L\'enseignant(e) présente l\'évènement et ajoute une ou plusieurs options de réservation au(x)quelle(s) les étudiant(e)s pourront s\'inscrire.
