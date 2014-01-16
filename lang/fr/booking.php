@@ -170,8 +170,7 @@ URL : {$a->bookinglink}
 
 $string['confirmationsubject'] = 'Message de confirmation de la réservation {$a->title}';
 $string['confirmationsubjectbookingmanager'] = 'Message de confirmation de la nouvelle réservation à {$a->title} par {$a->participant}';
-$string['confirmationmessage'] = 'Votre réservation a bien été enregistrée
-
+$string['confirmationmessage'] = 'Votre réservation a bien été enregistrée.
 
 Statut de la réservation : {$a->status}
 Participant :   {$a->participant}
@@ -184,7 +183,7 @@ $string['confirmationsubjectwaitinglist'] = 'Statut de la réservation à {$a->t
 $string['confirmationsubjectwaitinglistmanager'] = 'Statut de la réservation {$a->title}';
 $string['confirmationmessagewaitinglist'] = 'Bonjour {$a->participant},
 
-Votre réservation a bien été enregistrée
+Votre réservation a bien été enregistrée.
 
 Statut de la réservation : {$a->status}
 Participant : {$a->participant}
