@@ -23,6 +23,11 @@ class mod_booking_mod_form extends moodleform_mod {
 		}
 		$mform->addRule('name', null, 'required', null, 'client');
 
+        /* start tweaking */
+        // $mform->addElement('text', 'test', 'Test');
+        // $mform->setDefault('test', 'Te lorem ipsum dolor si amet');
+        /* /stop tweaking */
+
         $this->add_intro_editor(true, get_string('bookingtext', 'booking'));
 
 		//-------------------------------------------------------------------------------
@@ -58,6 +63,7 @@ class mod_booking_mod_form extends moodleform_mod {
         $mform->addElement('header', 'confirmation', get_string('confirmationmessagesettings', 'booking'));
 		
         $mform->addElement('selectyesno', 'sendmail', get_string("sendconfirmmail", "booking"));
+        $mform->setDefault('sendmail', 1);
 		
         $mform->addElement('selectyesno', 'copymail', get_string("sendconfirmmailtobookingmanger", "booking"));
 
@@ -73,6 +79,7 @@ class mod_booking_mod_form extends moodleform_mod {
             'status' => '{status}',
             'participant' => '{participant}',
             'title' => '{title}',
+            'description' => '{description}',
             'duration' => '{duration}',
             'starttime' => '{starttime}',
             'endtime' => '{endtime}',

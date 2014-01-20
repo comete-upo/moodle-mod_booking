@@ -126,6 +126,7 @@ $string['bookedtext_help'] = 'Laissez vide si vous voulez utiliser les textes pa
 <li>{status}</li>
 <li>{participant}</li>
 <li>{title}</li>
+<li>{description}</li>
 <li>{duration}</li>
 <li>{starttime}</li>
 <li>{endtime}</li>
@@ -157,11 +158,12 @@ $string['days'] = '{$a} days';
 $string['hours'] = '{$a} hours';
 $string['minutes'] = '{$a} minutes';
 
-$string['deletedbookingsubject'] = 'Annuler la réservation : {$a->title} by {$a->participant}';
+$string['deletedbookingsubject'] = 'Annuler la réservation : {$a->title} par {$a->participant}';
 $string['deletedbookingmessage'] = 'Message d\'annulation de cours supprimés : {$a->title}
 
 Participant : {$a->participant}
 Titre : {$a->title}
+{description}
 Date : {$a->startdate} {$a->starttime} - {$a->enddate} {$a->endtime}
 Url du cours : {$a->courselink}
 URL : {$a->bookinglink}
@@ -170,11 +172,12 @@ URL : {$a->bookinglink}
 
 $string['confirmationsubject'] = 'Message de confirmation de la réservation {$a->title}';
 $string['confirmationsubjectbookingmanager'] = 'Message de confirmation de la nouvelle réservation à {$a->title} par {$a->participant}';
-$string['confirmationmessage'] = 'Votre réservation a bien été enregistrée.
+$string['confirmationmessage'] = 'La réservation a bien été enregistrée.
 
 Statut de la réservation : {$a->status}
 Participant :   {$a->participant}
-Évé,nement :   {$a->title}
+Événement :   {$a->title}
+{description}
 Date : {$a->startdate} {$a->starttime} - {$a->enddate} {$a->endtime}
 Pour voir toutes vos réservations, cliquez sur le lien suivant : {$a->bookinglink}
 
@@ -188,6 +191,7 @@ Votre réservation a bien été enregistrée.
 Statut de la réservation : {$a->status}
 Participant : {$a->participant}
 Événement : {$a->title}
+{description}
 Date : {$a->startdate} {$a->starttime} - {$a->enddate} {$a->endtime}
 Pour voir toutes vos réservations, cliquez sur le lien suivant : {$a->bookinglink}
 
@@ -200,6 +204,7 @@ Le statut de votre réservation a changé. Vous êtes maintenant enregistré à 
 Statut de la réservation : {$a->status}
 Participant :   {$a->participant}
 Événement :   {$a->title}
+{description}
 Date : {$a->startdate} {$a->starttime} - {$a->enddate} {$a->endtime}
 Pour voir toutes vos réservations, cliquez sur le lien suivant : {$a->bookinglink}
 
@@ -208,6 +213,7 @@ $string['deletedbookingusersubject'] = 'Message d\'annulation de la réservation
 $string['deletedbookingusermessage'] = 'Bonjour {$a->participant},
 
 Votre réservation à {$a->title} ({$a->startdate} {$a->starttime}) a été annulée.
+{description}
 ';
 
 $string['error:failedtosendconfirmation'] = 'L\'utilisateur n\'a pas reçu d\'email de confirmation
@@ -215,6 +221,7 @@ $string['error:failedtosendconfirmation'] = 'L\'utilisateur n\'a pas reçu d\'em
 Statut de la réservation : {$a->status}
 Participant :   {$a->participant}
 Événement :   {$a->title}
+{description}
 Date : {$a->startdate} {$a->starttime} - {$a->enddate} {$a->endtime}
 URL : {$a->bookinglink}
 URL cours associé : {$a->courselink}
