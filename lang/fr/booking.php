@@ -213,7 +213,6 @@ $string['deletedbookingusersubject'] = 'Message d\'annulation de la réservation
 $string['deletedbookingusermessage'] = 'Bonjour {$a->participant},
 
 Votre réservation à {$a->title} ({$a->startdate} {$a->starttime}) a été annulée.
-{description}
 ';
 
 $string['error:failedtosendconfirmation'] = 'L\'utilisateur n\'a pas reçu d\'email de confirmation
